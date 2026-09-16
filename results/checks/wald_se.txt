@@ -1,0 +1,10 @@
+Saved default Wald fits; individual binary logistic model, exposure only, 25 per group.
+At common coefficients h_i=1/25, I_aug=(26/25) I, SE_aug=sqrt(25/26) SE.
+SE ratio: 0.980580675691; reduction percent: 1.94193243
+Disagreements: 12/674; all ordinary CI includes zero and logistf CI excludes zero.
+Using identical closed-form Firth coefficients and the two SE formulas reproduces all 674 decisions.
+Holding PROC LOGISTIC beta fixed and replacing only SE with logistf SE reproduces all 674 logistf decisions.
+Holding logistf beta fixed and replacing only SE with PROC LOGISTIC SE reproduces all 674 PROC LOGISTIC decisions.
+Aligning SE to either saved implementation gives zero decision disagreements across all 674 tables; no models were refitted.
+Max absolute beta difference among 12 disagreements: 3.8920693864e-05
+Max relative SE formula error, all tables: SAS 0.000229031305891; logistf 1.5358785721e-06

@@ -1,0 +1,17 @@
+project:
+  type: default
+  render:
+    - presentation/slides.qmd
+
+lang: ja
+format:
+  touying-typst:
+    shift-heading-level-by: 0
+    fontsize: 20pt
+    mainfont: "Yu Gothic"
+    sansfont: "Yu Gothic"
+    monofont: "MS Gothic"
+    handout: true
+    keep-typ: false
+execute:
+  enabled: false

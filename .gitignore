@@ -1,0 +1,27 @@
+# Local caches and temporary output
+/.cache/
+/.quarto/
+/tmp/
+/.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.Renviron
+.env
+.env.*
+!.env.example
+~$*
+.DS_Store
+Thumbs.db
+presentation/slides.typ
+presentation/slides_files/
+**/*.quarto_ipynb
+
+# Expanded SAS inputs: regenerate with Rscript R/prepare_sas.R
+/data/sas_*.csv
+
+# Per-batch model output; retain results/model_fits.rds for reanalysis.
+/results/raw/r_full_*/
+/results/raw/sas_full_*/
+/results/raw/*pilot*/
+/results/checks/session.txt

@@ -1,0 +1,13 @@
+completed=2026-09-16 15:08:04
+eligible_datasets=41877
+enumerated_tables=22437; eligible=22421; one_outcome=16
+covariate_datasets=20000; eligible=19456; one_outcome=544
+integrated_rows=1507572; unique methods=36; target ID sets verified for every method
+scope=all four implementations
+exact_aggregation=each table counted once; 8 group-size designs; no binomial weighting
+exact_quantiles=R quantile type 7; simulation quantiles unchanged (empirical inverse CDF)
+decision_comparison=unrounded CI excludes zero; p < 0.05
+proportion_denominator=all configurations/replicates for availability; available pairs for disagreements; legacy column suffix probability retained
+MCSE=binomial SE over available independent replicates; zero observed events does not prove zero population probability
+common_cohort=all 13 R and 7 SAS PROC point fits converge; FL convergence not available
+common_inference_available=add finite ordered CIs and p in [0,1] for every R/SAS PROC variant; same subset for factor ranking

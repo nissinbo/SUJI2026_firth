@@ -1,0 +1,16 @@
+Source: results/model_fits.rds; data/tables.csv
+Fixed group sizes: 25 exposed and 25 unexposed; a,c each range from 0 to 25
+Default settings; nonconverged numeric outputs retained as in pair_summary.csv
+Configurations: 676; available confidence interval pairs: 674; disagreements: 36
+Weight sum: 1
+Available-pair fraction of all configurations: 0.99704142011834318
+Disagreement fraction of all configurations: 0.053254437869822487
+Disagreement fraction of available pairs: 0.053412462908011875
+Aggregation: each table counted once; no event probability or true OR specified
+PL vs PL: available confidence interval pairs 674; disagreements 0
+Wald: PROC vs logistf 12/674; PROC vs brglm2 0/674; table fraction 0.017804154302670624
+Wald: brglm2 vs logistf has the same disagreement cells as PROC vs logistf.
+Recalculated Wald: each saved PROC/logistf beta retained; common ordinary-information SE at closed-form Firth group probabilities.
+Recalculated Wald: available pairs 674; disagreements 0; excluded all-event/no-event tables 2.
+Common SE agrees with wald_se.csv to 1e-12; recalculated decisions agree with saved PROC decisions.
+Validated against saved pair_summary.csv to 1e-12.

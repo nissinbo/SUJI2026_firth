@@ -1,0 +1,7 @@
+design_version=2026-09-09
+repetitions=2500
+one_outcome=recorded as design exclusion; probability retained in denominator
+covariate_p0=marginal nonexposed probability 0.05; intercept calibrated per rho
+covariate_OR=conditional exposure odds ratio 2; fixed gamma1=gamma2=0.5
+common_random_numbers=same x1,z,uniform outcome draws within n and replicate
+covariate_backgrounds=40 with 20:20; 100 with 20:80; not a size-only contrast

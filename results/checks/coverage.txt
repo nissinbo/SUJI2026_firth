@@ -1,0 +1,9 @@
+estimand=conditional exposure log odds ratio log(2), not the null value 0
+scope=8 covariate scenarios x 36 output settings x 3 availability/convergence cohorts
+coverage=P(interval includes log(2) | interval available and cohort selected)
+availability=finite endpoints in correct order; endpoints inclusive
+default_figure=6 outputs; default fits with Wald and PL output shown separately
+unknown_convergence=not treated as converged; empty cohorts yield NA, never zero coverage
+MCSE=sqrt(coverage*(1-coverage)/denominator); error bars=+/-1.96*MCSE, clipped to [0,1]
+checks=complete unique eligible IDs; count partitions; independent OR-scale inclusion; existing method-status denominators
+no_model_refits=TRUE

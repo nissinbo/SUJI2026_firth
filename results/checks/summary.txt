@@ -1,0 +1,8 @@
+verified=2026-09-16 15:08:04
+scenario_comparison_cohort_keys=complete and unique
+probability_accounting=joint <= available <= cohort; conditional=joint/available
+equal_count_proportions=disagreements / available pairs for every comparison and cohort
+one_outcome_exclusion_proportion=2 / ((n_exposed+1)*(n_unexposed+1))
+same_SAS_fit_Wald_vs_PL=p-values identical
+same_logistf_fit_Wald_vs_PL=coefficients identical
+simulation_MCSE=matches available-pair binomial formula

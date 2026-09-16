@@ -1,0 +1,5 @@
+"scope","stage","tables","disagreements","median","maximum"
+"original_disagreements","before",36,36,0.412205943943561,1.89887570063586
+"original_disagreements","after",36,0,7.89518800203837e-06,2.90461563920985e-05
+"all_available","before",674,36,0.0988209871275814,1.92074441293711
+"all_available","after",674,0,2.72616264673786e-07,0.000138957397700423

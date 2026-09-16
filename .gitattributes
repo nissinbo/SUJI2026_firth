@@ -1,0 +1,15 @@
+* text=auto
+*.R text eol=lf
+*.qmd text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.typ text eol=lf
+*.csv text eol=lf
+*.ps1 text eol=crlf
+*.rds binary
+*.pdf binary
+*.png binary
+*.docx binary
+# Keep bundled third-party source byte-for-byte.
+sas/vendor/* -text
+_extensions/** -text
