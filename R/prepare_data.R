@@ -1,11 +1,9 @@
 # Shared design for equally counted 2x2 configurations and paired simulations.
-Sys.setlocale("LC_CTYPE", "Japanese_Japan.utf8")
+source("R/project_helpers.R", local = TRUE)
+set_project_locale()
 source("R/data_helpers.R", local = TRUE)
 
-dir.create("data", recursive=TRUE, showWarnings=FALSE)
-dir.create("results", recursive=TRUE, showWarnings=FALSE)
-dir.create("results/raw", recursive=TRUE, showWarnings=FALSE)
-dir.create("results/checks", recursive=TRUE, showWarnings=FALSE)
+ensure_directories(c("data", "results", "results/raw", "results/checks"))
 B <- 2500L
 design <- expand.grid(n=c(20L,50L,100L,200L), ratio=c(1L,4L))
 design$n_exposed <- design$n/(1+design$ratio)

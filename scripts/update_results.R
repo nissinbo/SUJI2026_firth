@@ -1,10 +1,9 @@
 # Run from the project root. --rebuild also re-imports the full raw model outputs.
 # Model fitting and input generation are separate, explicit operations.
-if (.Platform$OS.type == "windows") Sys.setlocale("LC_CTYPE", "Japanese_Japan.utf8")
-if (!file.exists("presentation/slides.qmd")) stop("Run from the project root")
-for (folder in c("results/tables", "results/figures", "results/checks")) {
-  dir.create(folder, recursive = TRUE, showWarnings = FALSE)
-}
+source("R/project_helpers.R", local = TRUE)
+set_project_locale()
+assert_project_root()
+ensure_directories(c("results/tables", "results/figures", "results/checks"))
 steps <- c("summarize", "validate_results", "check_wald_se", "summarize_pl_alignment",
            "plot_results", "plot_heatmaps", "coverage", "plot_intro_bias")
 for (step in steps) {

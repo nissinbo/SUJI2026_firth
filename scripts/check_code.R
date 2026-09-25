@@ -1,6 +1,8 @@
 # Read-only regression checks for shared inputs and model wrappers.
 # Run from the project root; full experiments are not rerun.
-if (.Platform$OS.type == "windows") Sys.setlocale("LC_CTYPE", "Japanese_Japan.utf8")
+source("R/project_helpers.R", local = TRUE)
+set_project_locale()
+assert_project_root()
 source("R/utils.R", local = TRUE)
 source("R/data_helpers.R", local = TRUE)
 source("R/analysis_helpers.R", local = TRUE)

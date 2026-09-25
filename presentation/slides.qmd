@@ -32,7 +32,7 @@ theme-title-slide: 'themes.metropolis.title-slide.with(config: config-common(fre
 
 ## 完全分離と準完全分離
 
-分離と呼ばれる状況では、ロジスティック回帰で推定値を求めることができない。
+分離と呼ばれる状況では、通常の最尤法で有限の回帰係数を求めることができない。
 
 :::: {.columns}
 ::: {.column width="1fr"}
@@ -95,7 +95,7 @@ $\ell$：通常の対数尤度、$I$：Fisher情報行列
 
 ![](../results/figures/intro_bias.png){width=82% fig-align="center"}
 
-Firth法によってバイアスが解消されていることがわかる。
+この条件では、Firth法によってバイアスが大きく低減している。
 
 [[Kosmidis & Firth (2021)](https://doi.org/10.1093/biomet/asaa052)]{.small-cite}
 
@@ -191,7 +191,7 @@ CAMISでは、SAS PROC LOGISTICとR logistfの実装差と実行結果を比較�
   [SAS \ PROC LOGISTIC], [`CLPARM`で指定], [Wald検定], [p値は変更不可],
   [SAS %FL], [PL区間], [PLRT], [`pl`でWald区間・検定],
   [R logistf], [PL区間], [PLRT], [`pl`でWald区間・検定],
-  [R brglm2], [Wald区間], [Wald検定], [変更不可],
+  [R brglm2], [Wald区間], [Wald検定], [本発表ではWald法を使用],
 )
 ```
 
@@ -400,7 +400,7 @@ confint(fit_bg, level = 0.95)
 :::
 ::::
 
-**今回のシナリオでは、PL区間に揃えるとすべての判定が一致した。**
+**今回の各群25例の比較では、PL区間に揃えると比較可能な674表すべてで判定が一致した。**
 
 [判定が異なった36表の区間の数値差：中央値 0.412 → 0.00000790（詳細はAppendix）]{.small-cite}
 
@@ -421,7 +421,7 @@ confint(fit_bg, level = 0.95)
 :::
 ::::
 
-**Wald区間に揃えても、標準誤差の推定方法の違いにより判定差が残った。**\
+**今回の比較では、Wald区間に揃えても標準誤差の計算方法の違いにより判定差が残った。**\
 
 ## 総症例数を変えた結果
 
@@ -429,7 +429,7 @@ confint(fit_bg, level = 0.95)
 
 ![](../results/figures/exact_ci_decision.png){width=75%}
 
-**総症例数が増えるほど判定が異なった割合は低下した。**
+**今回の全列挙では、総症例数が増えるほど判定が異なった割合は低下した。**
 
 ## 群配分を変えた結果
 
@@ -447,13 +447,13 @@ PROC LOGISTICのWald区間 対 logistfのPL区間\
 )
 ```
 
-**総症例数が同じ場合、群配分1:4の方が判定差の割合は高かった。**
+**今回の4条件では、総症例数が同じ場合に群配分1:4の方が判定差の割合は高かった。**
 
 ## 共変量モデルでの信頼区間の判定差
 
 ![](../results/figures/covariate_ci_decision.png){width=72%}
 
-**共変量の相関が高くなるほど判定差が増えるという傾向は見られなかった。**
+**今回の8条件では、共変量の相関が高くなるほど判定差が増える傾向は見られなかった。**
 
 ## 要因別の影響：信頼区間の数値差
 
@@ -465,7 +465,7 @@ PROC LOGISTICのWald区間 対 logistfのPL区間\
 
 ## SAS・Rの各実装で異なる要素
 
-**信頼区間・検定：** %FL・logistfはPL法とWald法を切り替えられる。brglm2はWald法である。\
+**信頼区間・検定：** %FL・logistfはPL法とWald法を切り替えられる。本発表で用いたbrglm2の出力はWald法である。\
 PROC LOGISTICは信頼区間を変更できるが、検定はWaldのみ使用できる。
 
 **標準誤差：** PROC LOGISTIC・%FL・brglm2は通常の情報行列、logistfは補助重みを加えた情報行列を用いる。
@@ -482,7 +482,7 @@ PROC LOGISTICは信頼区間を変更できるが、検定はWaldのみ使用で
 - Wald法に揃えても、標準誤差の計算方法の違いにより判定を変えることがあった。
 - 計算アルゴリズムや収束設定にも差があり、同じ方式でも数値や収束状態が異なり得る。
 
-**信頼区間・検定の方式を揃え、標準誤差の計算方法と、点推定・区間計算それぞれの収束設定を確認して比較する。**
+**まず推論方式を揃え、Wald法では標準誤差の定義も確認する。さらに、点推定・区間計算それぞれの収束設定と実際の収束状態を確認する。**
 
 # Appendix
 

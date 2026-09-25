@@ -1,4 +1,5 @@
-Sys.setlocale("LC_CTYPE","Japanese_Japan.utf8")
+source("R/project_helpers.R", local = TRUE)
+set_project_locale()
 stopifnot(requireNamespace("lpSolve",quietly=TRUE))
 classify_separation <- function(dat,formula) {
   if(length(unique(dat$y))==1L) return("one_outcome")
