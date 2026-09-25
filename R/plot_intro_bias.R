@@ -1,5 +1,6 @@
 # Summarize and plot saved introduction fits; no simulation is rerun.
-Sys.setlocale("LC_CTYPE", "Japanese_Japan.utf8")
+source("R/project_helpers.R", local = TRUE)
+set_project_locale()
 intro <- readRDS("results/raw/intro_bias.rds")
 intro_n <- intro$n
 intro_B <- intro$repetitions

@@ -1,4 +1,6 @@
-Sys.setlocale("LC_CTYPE","Japanese_Japan.utf8")
+source("R/project_helpers.R", local = TRUE)
+source("R/analysis_helpers.R", local = TRUE)
+set_project_locale()
 
 folder<-"results/tables"
 z<-read.csv(file.path(folder,"pair_summary.csv"))
@@ -34,7 +36,6 @@ cat("Independent summary checks passed.\n")
 
 # Independently check equal-count summaries against saved per-table fits.
 
-Sys.setlocale("LC_CTYPE", "Japanese_Japan.utf8")
 tabdir <- "results/tables"
 grid <- read.csv("data/tables.csv", stringsAsFactors=FALSE)
 fits <- readRDS("results/model_fits.rds")
@@ -42,8 +43,6 @@ fits <- fits[fits$config_id %in% grid$config_id, ]
 methods <- split(fits, fits$key)
 rm(fits)
 aligned <- lapply(methods, function(z) z[match(grid$config_id,z$config_id), ])
-ci_ok <- function(z) is.finite(z$low) & is.finite(z$high) & z$low <= z$high
-p_ok <- function(z) is.finite(z$p) & z$p >= 0 & z$p <= 1
 known_methods <- aligned[!grepl("^sas_fl", names(aligned))]
 common <- Reduce(`&`, lapply(known_methods, function(z) !is.na(z$converged) & z$converged))
 common_inference <- common & Reduce(`&`, lapply(known_methods, function(z) ci_ok(z) & p_ok(z)))
@@ -86,7 +85,6 @@ writeLines(record,"results/checks/table_counts.txt")
 cat(paste(record,collapse="\n"),"\n")
 
 # Read saved summaries only; no data generation or model fitting.
-Sys.setlocale("LC_CTYPE", "Japanese_Japan.utf8")
 design <- read.csv("data/scenarios.csv", stringsAsFactors = FALSE)
 pairs <- read.csv("results/tables/pair_summary.csv", stringsAsFactors = FALSE)
 selected <- design

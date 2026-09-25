@@ -1,11 +1,12 @@
-Sys.setlocale("LC_CTYPE","Japanese_Japan.utf8")
+source("R/project_helpers.R", local = TRUE)
+set_project_locale()
 source("R/import_results.R", local = TRUE)
 source("R/data_helpers.R", local = TRUE)
 source("R/analysis_helpers.R", local = TRUE)
 source("R/comparison_settings.R", local = TRUE)
 
 output_dir <- "results/tables"
-dir.create(output_dir,showWarnings=FALSE)
+ensure_directories(output_dir)
 write_result <- function(x,name) write.csv(x,file.path(output_dir,paste0(name,".csv")),row.names=FALSE,na="")
 tables <- read.csv("data/tables.csv",stringsAsFactors=FALSE)
 covmeta <- readRDS("results/raw/covariate_diagnostics.rds")

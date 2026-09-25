@@ -1,4 +1,5 @@
-Sys.setlocale("LC_CTYPE","Japanese_Japan.utf8")
+source("R/project_helpers.R", local = TRUE)
+set_project_locale()
 library(ggplot2)
 
 tabdir <- "results/tables"

@@ -1,9 +1,9 @@
 # Coverage of the exposure coefficient in the saved covariate simulations.
 # No input generation or model fitting. Run from the project root.
-Sys.setlocale("LC_CTYPE", "Japanese_Japan.utf8")
+source("R/project_helpers.R", local = TRUE)
+set_project_locale()
 source("R/analysis_helpers.R", local = TRUE)
-for (folder in c("results/tables", "results/figures", "results/checks"))
-  dir.create(folder, recursive = TRUE, showWarnings = FALSE)
+ensure_directories(c("results/tables", "results/figures", "results/checks"))
 design <- read.csv("data/covariate_scenarios.csv", stringsAsFactors = FALSE)
 meta <- readRDS("data/covariate_metadata.rds")
 fits <- readRDS("results/model_fits.rds")

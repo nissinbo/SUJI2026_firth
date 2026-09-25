@@ -1,5 +1,6 @@
 # Reuse saved fits; no models or simulation scenarios are rerun.
-Sys.setlocale("LC_CTYPE", "Japanese_Japan.utf8")
+source("R/project_helpers.R", local = TRUE)
+set_project_locale()
 source("R/analysis_helpers.R", local = TRUE)
 library(ggplot2)
 tables <- read.csv("data/tables.csv", stringsAsFactors = FALSE)
