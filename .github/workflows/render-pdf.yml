@@ -1,0 +1,94 @@
+name: Render presentation PDF
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/render-pdf.yml"
+      - "_quarto.yml"
+      - "_extensions/**"
+      - "presentation/**"
+      - "results/figures/**"
+      - "scripts/render_slides.ps1"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/render-pdf.yml"
+      - "_quarto.yml"
+      - "_extensions/**"
+      - "presentation/**"
+      - "results/figures/**"
+      - "scripts/render_slides.ps1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: render-pdf-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render slides
+    runs-on: windows-2022
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "1.10.18"
+
+      - name: Cache Typst packages
+        uses: actions/cache@v4
+        with:
+          path: .cache/typst-packages
+          key: typst-${{ runner.os }}-quarto-1.10.18-${{ hashFiles('_extensions/**', '_quarto.yml') }}
+          restore-keys: |
+            typst-${{ runner.os }}-quarto-1.10.18-
+
+      - name: Verify render-only inputs
+        shell: pwsh
+        run: |
+          $required = @(
+            "presentation/slides.qmd",
+            "presentation/tables.typ",
+            "results/figures/intro_bias.png",
+            "results/figures/exact_heatmap_decision.png",
+            "results/figures/exact_heatmap_aligned.png",
+            "results/figures/exact_heatmap_wald_logistf.png",
+            "results/figures/exact_heatmap_wald_common_se.png",
+            "results/figures/exact_ci_decision.png",
+            "results/figures/covariate_ci_decision.png",
+            "results/figures/factor_ci_difference.png"
+          )
+          $missing = $required | Where-Object { -not (Test-Path -LiteralPath $_ -PathType Leaf) }
+          if ($missing) {
+            throw "Missing committed render inputs: $($missing -join ', ')"
+          }
+          Write-Host "Using committed calculation outputs only; no R or SAS analysis is executed."
+
+      - name: Render PDF
+        shell: pwsh
+        run: ./scripts/render_slides.ps1
+
+      - name: Verify PDF output
+        shell: pwsh
+        run: |
+          $pdf = Get-Item -LiteralPath "presentation/slides.pdf"
+          if ($pdf.Length -lt 10000) {
+            throw "Rendered PDF is unexpectedly small: $($pdf.Length) bytes"
+          }
+          Write-Host "Rendered $($pdf.FullName) ($([math]::Round($pdf.Length / 1MB, 2)) MB)"
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: slides-pdf
+          path: presentation/slides.pdf
+          if-no-files-found: error
+          retention-days: 14

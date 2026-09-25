@@ -31,3 +31,16 @@ pwsh scripts/render_slides.ps1
 ## 比較時の基本方針
 
 同じFirth法でも、信頼区間・検定方式、標準誤差の定義、計算アルゴリズム、収束条件が実装ごとに異なります。本解析では、これらを分けて比較し、丸め前の数値と収束状態を確認します。
+
+## CIでのPDF生成
+
+GitHub Actionsの `.github/workflows/render-pdf.yml` は、保存済みの計算結果からスライドPDFだけを生成します。
+
+- SASやRでモデルを再実行しません。
+- `results/figures/` にコミット済みの図と `presentation/` の素材を読み込みます。
+- Quarto 1.10.18を使い、Windows runner上で `scripts/render_slides.ps1` を実行します。
+- PRと `main` へのpush、および手動実行で動きます。
+- 生成した `presentation/slides.pdf` はActionsの `slides-pdf` artifactとして14日間保存します。
+
+したがって、計算結果を更新するときはローカル環境で結果・図を更新してコミットし、CIではrenderだけを再現します。
+
