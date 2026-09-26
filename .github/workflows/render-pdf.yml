@@ -92,3 +92,47 @@ jobs:
           path: presentation/slides.pdf
           if-no-files-found: error
           retention-days: 14
+
+  commit-pdf:
+    name: Commit generated PDF
+    needs: render
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out rendered source commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Download generated PDF
+        uses: actions/download-artifact@v4
+        with:
+          name: slides-pdf
+          path: presentation
+
+      - name: Commit and push PDF if changed
+        shell: bash
+        run: |
+          # Never attach an older PDF to newer source changes.
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$GITHUB_SHA" ]; then
+            echo "::notice::main has advanced; skipping this PDF. Run the workflow on the latest main if needed."
+            exit 0
+          fi
+
+          git add -- presentation/slides.pdf
+          if git diff --cached --quiet; then
+            echo "PDF is unchanged; no commit needed."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update rendered presentation PDF"
+          # GITHUB_TOKEN pushes do not trigger another push workflow run.
+          # A concurrent update to main is rejected by this normal push.
+          git push origin HEAD:main

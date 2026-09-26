@@ -41,6 +41,8 @@ GitHub Actionsの `.github/workflows/render-pdf.yml` は、保存済みの計算
 - Quarto 1.10.18を使い、Windows runner上で `scripts/render_slides.ps1` を実行します。
 - PRと `main` へのpush、および手動実行で動きます。
 - 生成した `presentation/slides.pdf` はActionsの `slides-pdf` artifactとして14日間保存します。
+- `main` へのpush、または `main` を指定した手動実行では、生成・検証に成功したPDFを `github-actions[bot]` が `main` に自動コミットします。CI完了後に `git pull --ff-only` すると、手元のPDFも更新できます。
+- PDFに差分がない場合やPRでは書き戻しません。生成中に `main` が先へ進んだ場合も古いPDFの書き戻しをスキップします。必要な場合は最新の `main` で手動実行してください。
+- 書き戻し専用ジョブだけに `contents: write` を付与し、標準の `GITHUB_TOKEN` を使用します。この自動pushではCIを再起動しません。
 
 したがって、計算結果を更新するときはローカル環境で結果・図を更新してコミットし、CIではrenderだけを再現します。
-
